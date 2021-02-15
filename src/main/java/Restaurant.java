@@ -18,15 +18,21 @@ public class Restaurant {
     }
 
     public boolean isRestaurantOpen() {
-        return true;
-        //DELETE ABOVE STATEMENT AND WRITE CODE HERE
+        // Get Current Time
+        LocalTime currentTime = getCurrentTime();
+        boolean result = false;
+        // Check if Current time is before opening Time and after closing time
+        if(currentTime.isAfter(openingTime) && currentTime.isBefore(closingTime)) {
+            result = true;
+        }
+        return result;
     }
 
     public LocalTime getCurrentTime(){ return  LocalTime.now(); }
 
     public List<Item> getMenu() {
-        return null;
-        //DELETE ABOVE RETURN STATEMENT AND WRITE CODE HERE
+        // Returning Restaurant menu array
+        return menu;
     }
 
     private Item findItemByName(String itemName){
@@ -42,11 +48,11 @@ public class Restaurant {
         menu.add(newItem);
     }
     
-    public void removeFromMenu(String itemName) throws itemNotFoundException {
+    public void removeFromMenu(String itemName) throws ItemNotFoundException {
 
         Item itemToBeRemoved = findItemByName(itemName);
         if (itemToBeRemoved == null)
-            throw new itemNotFoundException(itemName);
+            throw new ItemNotFoundException(itemName);
 
         menu.remove(itemToBeRemoved);
     }
